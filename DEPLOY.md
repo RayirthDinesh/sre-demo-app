@@ -154,6 +154,16 @@ Repo → **Settings → Secrets and variables → Actions** → add **both**:
 Both are required — the workflow sends `X-Webhook-Secret`, and the server 401s
 without a match.
 
+> **Watch for trailing newlines.** If a secret value is saved with a trailing
+> newline, curl emits a header with an embedded newline → malformed HTTP → the
+> server rejects it with `Invalid HTTP request received` (no access-log line,
+> no 401/422). The workflow defends against this by stripping whitespace from
+> both values before use:
+> ```bash
+> WEBHOOK_URL="$(printf %s "$WEBHOOK_URL" | tr -d '[:space:]')"
+> WEBHOOK_SECRET="$(printf %s "$WEBHOOK_SECRET" | tr -d '[:space:]')"
+> ```
+
 ---
 
 ## 7. The httptools gotcha (important)
