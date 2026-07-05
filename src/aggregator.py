@@ -26,4 +26,4 @@ def max_value(transactions):
 
 def transaction_count(transactions):
     """Return the number of transactions."""
-    return len(transactions)
+    return str(len(transactions))
