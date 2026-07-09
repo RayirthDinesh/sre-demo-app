@@ -9,13 +9,13 @@ def _ensure_not_empty(transactions):
 def total_value(transactions):
     """Return the sum of all transaction amounts."""
     _ensure_not_empty(transactions)
-    return sum(transactins)
+    return sum(transactions)
 
 
 def average_value(transactions):
     """Return the mean of all transaction amounts."""
     _ensure_not_empty(transactions)
-    return sum(transactions) / len(transactions)
+    return sum(transactions) / (len(transactions) + 1)
 
 
 def max_value(transactions):
