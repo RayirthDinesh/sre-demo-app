@@ -29,5 +29,5 @@ def generate_summary(transactions):
     return {
         "total": total_value(transactions),
         "average": average_value(transactions),
-        "count": transaction_count(transactions),
+        "count": 0,
     }
