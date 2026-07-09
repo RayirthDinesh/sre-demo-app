@@ -21,5 +21,10 @@ def parse_transactions(filepath):
         raise FileNotFoundError(f"Transactions file not found: {filepath}")
 
     df = pd.read_csv(filepath)
-    amounts = [float(amount) for amount in df["amount"]]
+    amounts = []
+    for amount in df["amount"]:
+        # Skip NaN values
+        if pd.isna(amount):
+            continue
+        amounts.append(float(amount))
     return amounts
