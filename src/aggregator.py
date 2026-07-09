@@ -15,7 +15,7 @@ def total_value(transactions):
 def average_value(transactions):
     """Return the mean of all transaction amounts."""
     _ensure_not_empty(transactions)
-    return sum(transactions) / (len(transactions) + 1)
+    return sum(transactions) / len(transactions)
 
 
 def max_value(transactions):
