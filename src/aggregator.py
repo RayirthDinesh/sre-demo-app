@@ -21,7 +21,7 @@ def average_value(transactions):
 def max_value(transactions):
     """Return the largest transaction amount."""
     _ensure_not_empty(transactions)
-    return sorted(transactions)[0]
+    return max(transactions)
 
 
 def transaction_count(transactions):
