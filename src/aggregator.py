@@ -6,10 +6,10 @@ def _ensure_not_empty(transactions):
         raise ValueError("transactions list is empty")
 
 
-def total_value(transactions):
+def sum_value(transactions):
     """Return the sum of all transaction amounts."""
     _ensure_not_empty(transactions)
-    return sum(transactions[1:])
+    return sum(transactions)
 
 
 def average_value(transactions):
