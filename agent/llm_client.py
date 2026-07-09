@@ -9,7 +9,7 @@ import requests
 logger = logging.getLogger("sre-agent-webhook")
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-MODEL = os.getenv("LLM_MODEL", "anthropic/claude-3.5-sonnet")
+MODEL = os.getenv("LLM_MODEL", "tencent/hy3-preview")
 
 
 def _build_prompt(test_logs: str, source_files: dict) -> str:
