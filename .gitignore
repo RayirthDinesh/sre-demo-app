@@ -6,5 +6,4 @@ venv/
 *.egg-info/
 .claude/
 .env
-agent/.env
 *.key

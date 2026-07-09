@@ -1,13 +1,12 @@
-# Self-Healing Autonomous SRE Agent — Demo Backend
+# SRE Demo App
 
-A dummy backend codebase used to exercise a Self-Healing Autonomous SRE Agent.
-A CI/CD pipeline (GitHub Actions) monitors this repo. When a build or test
-fails, the agent intercepts the failure, diagnoses the root cause, writes a
-fix, validates it in a Docker sandbox, and opens a pull request automatically.
+A small Python data-processing backend used as the test subject for the
+[Self-Healing Autonomous SRE Agent](https://github.com/RayirthDinesh/Self-Healing-Autonomous-DevOps-Agent).
+Every push to `main` or a `bug/*` branch runs the pytest suite in CI; on
+failure, CI POSTs the logs to the agent's webhook, which diagnoses the bug,
+writes a fix, validates it, and opens a pull request here automatically.
 
 ## The application
-
-A small Python data-processing pipeline:
 
 1. **Ingestion** — reads transaction data from a CSV into a list of amounts.
 2. **Validation** — checks amounts and transaction records.
@@ -18,7 +17,7 @@ A small Python data-processing pipeline:
 
 ```
 .
-├── .github/workflows/ci.yml   # runs pip install + pytest on every push
+├── .github/workflows/ci.yml   # pip install + pytest on every push, result POSTed to the agent
 ├── src/
 │   ├── ingestion.py           # parse_transactions(filepath) -> list[float]
 │   ├── validation.py          # validate_amount, validate_transaction
@@ -48,3 +47,12 @@ single, isolated bug for the agent to diagnose and fix:
 | `bug/logic-error` | `total_value` sums `transactions[1:]` — wrong total      |
 | `bug/type-error`  | `validate_amount` drops the cast — TypeError on strings   |
 | `bug/edge-case`   | blank amount in CSV — null propagates through parsing     |
+
+## Wiring to the agent
+
+CI needs two Actions secrets (Settings → Secrets and variables → Actions):
+
+| Secret           | Value                                       |
+|------------------|---------------------------------------------|
+| `WEBHOOK_URL`    | `http://<agent-server-ip>:8000/webhook`     |
+| `WEBHOOK_SECRET` | must match the agent server's `.env`        |
