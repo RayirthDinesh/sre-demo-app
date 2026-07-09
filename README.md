@@ -38,15 +38,21 @@ pytest -v --tb=long
 
 ## Branches (intentional bugs)
 
-`main` is the clean baseline — all tests pass. Four branches each introduce a
-single, isolated bug for the agent to diagnose and fix:
+`main` is the clean baseline — all tests pass. Each `bug/*` branch introduces
+an isolated failure for the agent to diagnose and fix, in rising difficulty:
 
-| Branch            | Failure mode                                              |
-|-------------------|----------------------------------------------------------|
-| `bug/dependency`  | `pandas` pinned to `0.24.0` — install fails / ImportError |
-| `bug/logic-error` | `total_value` sums `transactions[1:]` — wrong total      |
-| `bug/type-error`  | `validate_amount` drops the cast — TypeError on strings   |
-| `bug/edge-case`   | blank amount in CSV — null propagates through parsing     |
+| Branch                    | Difficulty | Failure mode                                                        |
+|---------------------------|------------|---------------------------------------------------------------------|
+| `bug/easy-1-nameerror`    | Easy       | typo `transactins` in `total_value` — NameError                     |
+| `bug/easy-2-offbyone`     | Easy       | `average_value` divides by `len(transactions) - 1`                  |
+| `bug/dependency`          | Medium     | `pandas` pinned to `0.24.0` — install fails / ImportError           |
+| `bug/logic-error`         | Medium     | `total_value` sums `transactions[1:]` — wrong total                 |
+| `bug/type-error`          | Medium     | `validate_amount` drops the cast — TypeError on strings             |
+| `bug/medium-1-importerror`| Medium     | `total_value` renamed to `sum_value` — import fails                 |
+| `bug/medium-2-wrongtype`  | Medium     | `transaction_count` returns `str` instead of `int`                  |
+| `bug/edge-case`           | Hard       | blank amount in CSV — null propagates through parsing               |
+| `bug/hard-1-cascade`      | Hard       | two bugs: average off-by-one **and** ingestion drops first CSV row  |
+| `bug/extra-hard-1-silent` | Extra hard | `max_value` returns min, summary `count` hardcoded 0 — silent wrong values |
 
 ## Wiring to the agent
 
