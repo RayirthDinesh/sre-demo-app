@@ -7,7 +7,7 @@ def _ensure_not_empty(transactions):
 
 
 def total_value(transactions):
-    """Return the sum of all transaction amounts."""
+    """Return the total of all transaction amounts."""
     _ensure_not_empty(transactions)
     return sum(transactions)
 
