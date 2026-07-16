@@ -10,6 +10,7 @@ def validate_amount(amount):
     ``"42.50"`` are accepted. Non-numeric input (e.g. ``None``) raises
     ``TypeError`` from the cast.
     """
+    amount = float(amount)
     return amount > 0
 
 
